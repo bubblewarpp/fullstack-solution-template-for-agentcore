@@ -173,7 +173,7 @@ resource "aws_lambda_function" "feedback" {
   environment {
     variables = {
       TABLE_NAME           = aws_dynamodb_table.feedback.name
-      CORS_ALLOWED_ORIGINS = "${var.frontend_url},http://localhost:3000"
+      CORS_ALLOWED_ORIGINS = var.frontend_url
     }
   }
 

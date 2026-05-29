@@ -560,7 +560,7 @@ export class BackendStack extends cdk.NestedStack {
       handler: "handler",
       environment: {
         TABLE_NAME: feedbackTable.tableName,
-        CORS_ALLOWED_ORIGINS: `${frontendUrl},http://localhost:3000`,
+        CORS_ALLOWED_ORIGINS: frontendUrl,
       },
       timeout: cdk.Duration.seconds(30),
       layers: [
@@ -592,7 +592,7 @@ export class BackendStack extends cdk.NestedStack {
       restApiName: `${config.stack_name_base}-api`,
       description: "API for user feedback and future endpoints",
       defaultCorsPreflightOptions: {
-        allowOrigins: [frontendUrl, "http://localhost:3000"],
+        allowOrigins: [frontendUrl],
         allowMethods: ["POST", "OPTIONS"],
         allowHeaders: ["Content-Type", "Authorization"],
       },

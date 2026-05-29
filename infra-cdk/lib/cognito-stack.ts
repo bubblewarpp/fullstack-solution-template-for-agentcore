@@ -24,9 +24,7 @@ export class CognitoStack extends cdk.NestedStack {
   }
 
   private createCognitoUserPool(config: AppConfig, callbackUrls?: string[]): void {
-    // Use provided callback URLs or defaults
-    const defaultCallbackUrls = ["http://localhost:3000", "https://localhost:3000"]
-    const finalCallbackUrls = callbackUrls || defaultCallbackUrls
+    const finalCallbackUrls = callbackUrls ?? []
 
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: `${config.stack_name_base}-user-pool`,
@@ -80,7 +78,6 @@ export class CognitoStack extends cdk.NestedStack {
           authorizationCodeGrant: true,
         },
         scopes: [cognito.OAuthScope.OPENID, cognito.OAuthScope.EMAIL, cognito.OAuthScope.PROFILE],
-        // Support both localhost development and production URLs
         callbackUrls: finalCallbackUrls,
         logoutUrls: finalCallbackUrls,
       },

@@ -19,11 +19,8 @@ locals {
   # Cognito domain prefix (must be globally unique and lowercase)
   domain_prefix = "${lower(replace(var.stack_name_base, "_", "-"))}-${local.account_id}-${local.region}"
 
-  # Callback URLs (hardcoded to match CDK cognito-stack.ts defaults)
-  default_callback_urls = ["http://localhost:3000", "https://localhost:3000"]
-
-  # Combine callback URLs with Amplify URL if provided
-  all_callback_urls = var.amplify_url != null ? concat(local.default_callback_urls, [var.amplify_url]) : local.default_callback_urls
+  # Production callback URLs
+  all_callback_urls = var.amplify_url != null ? [var.amplify_url] : []
 
   # Password minimum length (hardcoded to match CDK cognito-stack.ts)
   password_minimum_length = 8

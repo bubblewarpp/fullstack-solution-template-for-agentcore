@@ -54,7 +54,7 @@ export function useAuth() {
       const logoutUri =
         authConfig?.redirect_uri ||
         import.meta.env.VITE_COGNITO_REDIRECT_URI ||
-        "http://localhost:3000"
+        (typeof window !== "undefined" ? window.location.origin : "")
 
       auth.signoutRedirect({
         extraQueryParams: {
